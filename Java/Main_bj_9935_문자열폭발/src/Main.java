@@ -28,7 +28,7 @@ public class Main {
 					{
 						isBoom = true;
 					}
-					//key가 한글자 이상인 경우 추가 처리
+					//key가 한글자 이상인 경우 추가 처리(스택을 꺼내면서 확인한다.)
 					while (!isBoom&&!stk.isEmpty() && s.length() < key.length()) {
 						s += stk.pop();
 						if (s.equals(key))
