@@ -40,15 +40,16 @@ public class Main {
 				int height = Integer.parseInt(st.nextToken());
 				if (max < height)
 				{
-					max = height;
-					big_point = point;
+					max = height; // 타워의 높이
+					big_point = point; // 타워의 가장 높은 크기의 인덱스
 				}
-				t[i] = new tower(point, height);
+				t[i] = new tower(point, height); // 배열에 저장
 			}
 			Arrays.sort(t);
 			max = 0;
 			int sum = 0;
 			int befpoint = 0;
+			
 			for (int i = 0; i < N; i++) {
 					if (max <= t[i].height) {
 						sum += max * (t[i].point - befpoint);
