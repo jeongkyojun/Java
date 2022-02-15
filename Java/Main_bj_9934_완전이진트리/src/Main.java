@@ -2,6 +2,31 @@
 import java.util.*;
 import java.io.*;
 
+/*
+ * depth = 1 일때는 
+ * {1,2,3}
+ * 2
+ * 1 3 의 형태로 출력된다.
+ * 
+ * dep = 2 일때는
+ * {1,2,3,4,5,6,7}
+ * 4
+ * 2 6
+ * 1 3 5 7 의 형태로 출력된다.
+ * 
+ * 여기서 확인할 수 있는 점은
+ * {1,2,3} , 4 , {5,6,7}
+ * -> {{1}, 2, {3}}, 4, {{5}, 6, {7}} 의 형태로 재귀가 일어난다는 점이다.
+ * 
+ *  1. 중앙값을 골라 출력한다
+ *  	mid = (low+high)/2, println(mat[mid]);
+ *  2. 중앙값을 기준으로 배열을 두개로 나눈다
+ *  	mat = {1,2,3,4,5,6,7} -> m1 = {1,2,3} , m2 = {5,6,7}
+ *  3. 이를 반복하며, 배열의 길이가 하나일때는 넘어가지 않는다.
+ *  
+ *  이를 bfs를 이용하여 풀었다.
+ */
+
 public class Main {
 
 	public static void main(String[] args) throws Exception {
@@ -10,7 +35,7 @@ public class Main {
 
 		int T = Integer.parseInt(bf.readLine());
 		for (int test_case = 1; test_case <= T; test_case++) {
-			System.out.println("#" + test_case + " ");
+			System.out.println("#" + test_case + " "); // 테스트케이스 출력
 
 			int depth = Integer.parseInt(bf.readLine());
 			int N = (1 << depth) - 1;
@@ -27,20 +52,25 @@ public class Main {
 	static void PrintTree(int[] mat, int low, int high, int depth) {
 		Queue<int[]> Q = new LinkedList<int[]>();
 
-		Q.offer(mat);
+		Q.offer(mat); // 초기값 삽입
+		
+		// bfs수행
 		for (int i = 0; i < depth; i++) {
-			for (int j = 0; j < 1 << i; j++) {
+			for (int j = 0; j < 1 << i; j++) { // 완전트리이므로 2^n회 수행
 				int[] v = Q.poll();
+				
+				// 중앙값을 구해 출력한다(1번)
 				int mid = (v.length) / 2;
 				System.out.print(v[mid]+" ");
-				//if (depth > 1) {
-					Q.offer(Arrays.copyOfRange(v, 0, mid));
-					Q.offer(Arrays.copyOfRange(v, mid + 1, v.length));
 				
+				// 중앙을 기준으로 나눈다.(2번)
+				Q.offer(Arrays.copyOfRange(v, 0, mid)); 
+				Q.offer(Arrays.copyOfRange(v, mid + 1, v.length));				
 			}
-			System.out.println();
+			// 반복한다(3번)
+			System.out.println(); // 바꾸기전에 줄바꿈을 수행한다.
 		}
-		System.out.println();
+		System.out.println(); // 테스트케이스 구분용 줄바꿈
 	}
 
 }
