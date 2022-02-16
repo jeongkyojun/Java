@@ -29,6 +29,8 @@ public class Main {
 		
 		Arrays.sort(S);
 		Arrays.sort(N);
+		// A와 B를 정렬한 뒤,
+		// A는 정방향으로, B는 역방향으로 진행하면서 그 곱들을 더한다.
 		int sum = 0;
 		for(int i=0;i<L;i++)
 		{

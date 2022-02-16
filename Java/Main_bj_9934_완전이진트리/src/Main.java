@@ -49,7 +49,8 @@ public class Main {
 		}
 	}
 
-	static void PrintTree(int[] mat, int low, int high, int depth) {
+	
+	/*static void PrintTree(int[] mat, int low, int high, int depth) {
 		Queue<int[]> Q = new LinkedList<int[]>();
 
 		Q.offer(mat); // 초기값 삽입
@@ -71,6 +72,31 @@ public class Main {
 			System.out.println(); // 바꾸기전에 줄바꿈을 수행한다.
 		}
 		System.out.println(); // 테스트케이스 구분용 줄바꿈
-	}
+	}*/
 
+	
+	// 수정한 값
+	static void PrintTree(int[] mat, int low, int high, int depth) {
+		Queue<int[]> Q = new LinkedList<int[]>();
+
+		Q.offer(new int[] {low,high}); // 초기값 삽입
+		
+		// bfs수행
+		for (int i = 0; i < depth; i++) {
+			for (int j = 0; j < 1 << i; j++) { // 완전트리이므로 2^n회 수행
+				int[] v = Q.poll();
+				
+				// 중앙값을 구해 출력한다(1번)
+				int mid = (v[0]+v[1])/ 2;
+				System.out.print(mat[mid]+" ");
+				
+				// 중앙을 기준으로 나눈다.(2번)
+				Q.offer(new int[] {v[0],mid-1}); 
+				Q.offer(new int[] {mid+1,v[1]});				
+			}
+			// 반복한다(3번)
+			System.out.println(); // 바꾸기전에 줄바꿈을 수행한다.
+		}
+		System.out.println(); // 테스트케이스 구분용 줄바꿈
+	}
 }
