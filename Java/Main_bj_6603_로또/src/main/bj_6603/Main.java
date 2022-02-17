@@ -1,0 +1,52 @@
+package main.bj_6603;
+
+import java.util.*;
+import java.io.*;
+
+public class Main {
+
+	static int[] res;
+	public static void main(String[] args) throws Exception{
+		BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream("res/input_bj_6603.txt")));
+		//BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		while(true)
+		{
+			StringTokenizer st = new StringTokenizer(bf.readLine());
+			int first = Integer.parseInt(st.nextToken());
+			if(first == 0)
+				break;
+
+			int[] mat = new int[first];
+			res= new int[6];
+			for(int i=0;i<first;i++)
+			{
+				mat[i] = Integer.parseInt(st.nextToken());
+			}
+			
+			Arrays.sort(mat);
+			
+			perm(mat,0,0,6,0);
+		}
+
+	}
+
+	static void perm(int[] mat, int flag,int p, int cnt,int n)
+	{
+		if(cnt==n)
+		{
+			for(int i=0;i<6;i++)
+			{
+				System.out.print(res[i]+" ");
+			}
+			System.out.println();
+			return;
+		}
+		for(int i=p;i<mat.length;i++)
+		{
+
+			res[n] = mat[i];
+			perm(mat,(flag|(1<<i)),i+1,cnt,n+1);
+		}
+	}
+}
