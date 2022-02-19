@@ -48,15 +48,15 @@ public class Main {
 		if(!key)
 		{
 			int n = N/3;
-			Setting(mat,start_x,start_y,n);
-			Setting(mat,start_x+n,start_y,n);
-			Setting(mat,start_x+2*n,start_y,n);
-			Setting(mat,start_x,start_y+n,n);
-			Setting(mat,start_x+n,start_y+n,n);
-			Setting(mat,start_x+2*n,start_y+n,n);
-			Setting(mat,start_x,start_y+2*n,n);
-			Setting(mat,start_x+n,start_y+2*n,n);
-			Setting(mat,start_x+2*n,start_y+2*n,n);
+			Setting(mat,start_x		,start_y,n);
+			Setting(mat,start_x+n	,start_y,n);
+			Setting(mat,start_x+2*n	,start_y,n);
+			Setting(mat,start_x		,start_y+n,n);
+			Setting(mat,start_x+n	,start_y+n,n);
+			Setting(mat,start_x+2*n	,start_y+n,n);
+			Setting(mat,start_x		,start_y+2*n,n);
+			Setting(mat,start_x+n	,start_y+2*n,n);
+			Setting(mat,start_x+2*n	,start_y+2*n,n);
 		}
 		// 일치하면 적용한다
 		else

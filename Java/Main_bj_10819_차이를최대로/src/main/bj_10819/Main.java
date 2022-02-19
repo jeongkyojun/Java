@@ -17,7 +17,7 @@ public class Main {
 			int N = Integer.parseInt(bf.readLine());
 			int[] mat = new int[N];
 			int[] r = new int[N];
-			StringTokenizer st = new StringTokenizer(bf.readLine());
+			StringTokenizer st = new StringTokenizer(bf.readLine()," ");
 			for(int i=0;i<N;i++)
 			{
 				mat[i] = Integer.parseInt(st.nextToken());

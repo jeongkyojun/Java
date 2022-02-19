@@ -26,12 +26,12 @@ public class Main {
 			
 			Arrays.sort(mat);
 			
-			perm(mat,0,0,6,0);
+			comb(mat,0,0,6,0);
 		}
 
 	}
 
-	static void perm(int[] mat, int flag,int p, int cnt,int n)
+	static void comb(int[] mat, int flag,int p, int cnt,int n)
 	{
 		if(cnt==n)
 		{
@@ -46,7 +46,7 @@ public class Main {
 		{
 
 			res[n] = mat[i];
-			perm(mat,(flag|(1<<i)),i+1,cnt,n+1);
+			comb(mat,(flag|(1<<i)),i+1,cnt,n+1);
 		}
 	}
 }
