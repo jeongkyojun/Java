@@ -1,5 +1,6 @@
 package main.bj_1339;
 
+// 단어수학
 import java.util.*;
 import java.io.*;
 
@@ -13,7 +14,7 @@ public class Main {
 
 		int T = Integer.parseInt(bf.readLine());
 		for (int test_case = 1; test_case <= T; test_case++) {
-			System.out.print("#" + test_case + " ");
+			System.out.println("#" + test_case + " ");
 
 			int n = Integer.parseInt(bf.readLine());
 			max = -1;
@@ -25,9 +26,9 @@ public class Main {
 			// 알파벳이 무작위로 나올 경우를 대비해 list에 나온 알파벳들을 숫자로 치환하여 채운다
 			// Ex) A -> 0 , B -> 1 .... Z -> 26
 			for (int i = 0; i < n; i++) {
-				String str = bf.readLine();
+				String str = bf.readLine(); // GCF
 				for (int j = 0; j < str.length(); j++) {
-					int alph = str.charAt(j) - 65;
+					int alph = str.charAt(j) - 65; // A = 0 , B = 1 , ....
 					if (!B[alph]) {
 						B[alph] = true;
 						list[cnt++] = alph;
@@ -36,7 +37,14 @@ public class Main {
 					mat[i][j + 1] = -1;
 				}
 			}
-
+			System.out.println("mat");
+			for(int i=0;i<n;i++)
+			{
+				System.out.println(Arrays.toString(mat[i]));
+			}
+			
+			System.out.println("num");
+			System.out.println(Arrays.toString(num));
 			for (int x = 9; x > 9 - cnt; x--) { // 가장 큰 값이므로 9부터 하나씩 줄이며 채운다.
 				int idx = 0;
 				for (int i = 0; i < cnt; i++) { // 가장 큰 결과를 가져다주는 칸으로 넣는다.
@@ -52,6 +60,8 @@ public class Main {
 				}
 				num[list[idx]] = x; // 저장해놓은 인덱스값에 해당값 매핑
 			}
+			System.out.println("after num");
+			System.out.println(Arrays.toString(num));
 			//max = cal(mat, num); // 최대값을 매핑한 것을 저장
 			System.out.println(max);
 		}

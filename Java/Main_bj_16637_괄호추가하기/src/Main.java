@@ -1,4 +1,4 @@
-
+// 괄호 추가하기
 import java.io.*;
 import java.util.*;
 
@@ -49,11 +49,10 @@ public class Main {
 					p++;
 				} else
 					cal[p] = s.charAt(i);
-
 			}
 			//System.out.println(max);
-			//System.out.println(Arrays.toString(cal));
-			//System.out.println(Arrays.toString(num));
+			System.out.println(Arrays.toString(cal));
+			System.out.println(Arrays.toString(num));
 
 			subset(num, cal, B, num.length - 1, 1);
 			System.out.println(max);
@@ -111,8 +110,8 @@ public class Main {
 				}
 			}
 			if (res > max) {
-				//System.out.print("res : " + res + " , ");
-				//System.out.println(Arrays.toString(B));
+				System.out.print("res : " + res + " , ");
+				System.out.println(Arrays.toString(B));
 				max = res;
 			}
 			return;

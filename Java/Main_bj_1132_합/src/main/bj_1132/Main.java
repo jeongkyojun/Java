@@ -34,10 +34,10 @@ public class Main {
 			// 알파벳이 무작위로 나올 경우를 대비해 list에 나온 알파벳들을 숫자로 치환하여 채운다
 			// Ex) A -> 0 , B -> 1 .... Z -> 26
 			for (int i = 0; i < n; i++) {
-				String str = bf.readLine();
+				String str = bf.readLine(); // 줄을 읽는다
 				for (int j = 0; j < str.length(); j++) {
-					int alph = str.charAt(j) - 65;
-					if (!B[alph]) {
+					int alph = str.charAt(j) - 65; // 알파벳을 숫자로 치환한값
+					if (!B[alph]) { // 지
 						B[alph] = true;
 						list[cnt++] = alph;
 					}

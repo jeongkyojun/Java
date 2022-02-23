@@ -1,5 +1,6 @@
 package main.bj_1759;
 
+// 암호만들기
 import java.util.*;
 import java.io.*;
 
