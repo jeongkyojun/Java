@@ -148,31 +148,7 @@ public class Main {
 					System.out.println(Arrays.toString(board[i]));
 				}
 			}
-			System.out.println("mat");
-			for(int i=0;i<N;i++)
-			{
-				for(int j=0;j<N;j++)
-				{
-					System.out.print(Arrays.toString(mat[i][j]));
-				}
-				System.out.println();
-			}
-			System.out.println();
-			System.out.println("like_list");
-			for(int i=0;i<N;i++)
-			{
-				for(int j=0;j<N;j++)
-				{
-					System.out.print(Arrays.toString(like_list[i][j]));
-				}
-				System.out.println();
-			}
-			System.out.println();
-			System.out.println("like");
-			for(int i=0;i<N;i++)
-			{
-				System.out.println(Arrays.toString(like[i]));
-			}
+			
 			for(int i=0;i<N;i++)
 			{
 				for(int j=0;j<N;j++)
