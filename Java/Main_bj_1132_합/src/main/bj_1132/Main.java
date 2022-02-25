@@ -2,8 +2,34 @@ package main.bj_1132;
 
 import java.util.*;
 import java.io.*;
+import java.math.BigDecimal;
 
-보류코드
+class NUMS implements Comparable<NUMS> {
+	char alph;
+	long num;
+
+	NUMS() {
+		this(0, '0');
+	}
+
+	NUMS(int num, char alph) {
+		this.num = num;
+		this.alph = alph;
+	}
+
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "["+alph+" : "+num+"]";
+	}
+
+	@Override
+	public int compareTo(NUMS o) {
+		// TODO Auto-generated method stub
+		return (num<o.num)?1:-1;
+	}
+}
 
 public class Main {
 
@@ -15,55 +41,82 @@ public class Main {
 
 		int T = Integer.parseInt(bf.readLine());
 		for (int test_case = 1; test_case <= T; test_case++) {
-			System.out.print("#" + test_case + " ");
+			System.out.println("#" + test_case + " ");
 
 			/*
-			 * 필요한 것
-			 * 맨 앞자리에 나오는 알파벳의 집합
-			 * 위 집합을 이용해 집합을 제외한 수들 중 0의 값을 부여해야 한다.
-			 * 아래의 코드에서 어떤것을 추가해야 할까?
+			 * 필요한 것 맨 앞자리에 나오는 알파벳의 집합 위 집합을 이용해 집합을 제외한 수들 중 0의 값을 부여해야 한다. 아래의 코드에서 어떤것을
+			 * 추가해야 할까?
 			 * 
 			 */
 			int n = Integer.parseInt(bf.readLine());
-			max = -1;
-			int[][] mat = new int[n][13]; // 각 수의 자리수를 확인하기 위해 마지막에 -1을 넣는다 -> 9칸의 배열로 선언
-			boolean[] B = new boolean[27]; // 현재의 알파벳이 이미 나온적 있는지를 확인
-			int[] list = new int[11]; // 나온 알파벳들의 목록
-			int[] num = new int[27]; // 숫자 매핑용 배열
-			int cnt = 0;
-			// 알파벳이 무작위로 나올 경우를 대비해 list에 나온 알파벳들을 숫자로 치환하여 채운다
-			// Ex) A -> 0 , B -> 1 .... Z -> 26
+			NUMS[] a = new NUMS[27];
+			int nums = 0; // 채워야할 알파벳의 개수
+			int t = 0; // 맨 앞인 알파벳의 개수
+			boolean[] isFirst = new boolean[27];
+			boolean[] list = new boolean[27];
+			
+			for(int i=0;i<27;i++)
+			{
+				a[i] = new NUMS(0,(char)('A'+i));
+			}
 			for (int i = 0; i < n; i++) {
-				String str = bf.readLine(); // 줄을 읽는다
-				for (int j = 0; j < str.length(); j++) {
-					int alph = str.charAt(j) - 65; // 알파벳을 숫자로 치환한값
-					if (!B[alph]) { // 지
-						B[alph] = true;
-						list[cnt++] = alph;
+				String st = new String(bf.readLine());
+				for (int j = 0; j < st.length(); j++) {
+					if(!list[st.charAt(j)-'A'])
+					{
+						nums++;
+						list[st.charAt(j)-'A'] = true;
+					}	
+					if(j==0 && !isFirst[st.charAt(j)-'A'])
+					{
+						isFirst[st.charAt(j)-'A'] = true;
+						//System.out.println(st.charAt(j));
+						t++;
 					}
-					mat[i][j] = alph;
-					mat[i][j + 1] = -1;
+					a[st.charAt(j) - 'A'].num += Math.pow(10, st.length() - j - 1);
 				}
 			}
-			System.out.println(max);
-		}
-	}
-
-	// 알파벳이 매핑되어있는 mat,
-	// 알파벳의 숫자가 저장되어있는 num (int[27])
-	static long cal(int[][] mat, int[] num) {
-		long sum = 0L;
-		for (int i = 0; i < mat.length; i++) {
-			long r = 0L;
-			for (int j = 0; j < mat[i].length; j++) {
-				if (mat[i][j] == -1)
+			int f = nums-t;
+			//System.out.println("nums : "+nums+" , f : "+f);
+			// nums = 10인경우 0
+			// nums = 1 인경우 9
+			Arrays.sort(a);
+			//System.out.println(Arrays.toString(a));
+			int num = 9;
+			BigDecimal res = new BigDecimal(0);
+			for (int i = 0; i < 27; i++) {
+				if(nums==10&&f==1)
+				{
+					if(!isFirst[a[i].alph-'A'])
+					{
+						//System.out.println(a[i].alph+" is false");
+						continue;
+					}
+					//System.out.println(a[i].alph+" is true");
+					//System.out.println(num+" -> "+a[i].alph);
+					BigDecimal a_num = new BigDecimal(a[i].num);
+					BigDecimal b_num = new BigDecimal(num);
+					num--;
+					res = res.add(a_num.multiply(b_num));
+					t--;
+				}
+				else
+				{
+					//System.out.println(num+" -> "+a[i].alph);
+					BigDecimal a_num = new BigDecimal(a[i].num);
+					BigDecimal b_num = new BigDecimal(num);
+					num--;
+					res = res.add(a_num.multiply(b_num));
+					if(isFirst[a[i].alph-'A'])
+						t--;
+					else
+						f--;
+				}
+				if(num==0)
 					break;
-				r *= 10;
-				r += num[mat[i][j]];
 			}
-			sum += r;
+			System.out.println(res.toString());
 		}
-		return sum;
 	}
 
 }
