@@ -80,7 +80,7 @@ public class Main {
 				if (shark_num == 1) {
 					break;
 				}
-				if (time > 1000) {
+				if (time >= 1000) {
 					time = -1;
 					break;
 				}
@@ -141,8 +141,7 @@ public class Main {
 								shark[i][0] = next_i; // 위치 변경
 								shark[i][1] = next_j;
 
-								dir[i] = dir[i] = move[i][dir[i]][j];
-								; // 보는 방향 변경
+								dir[i] = move[i][dir[i]][j];
 								continue move; // 다음으로 넘어간다.
 							}
 						}
@@ -153,14 +152,18 @@ public class Main {
 				for (int i = 0; i < N; i++) {
 					for (int j = 0; j < N; j++) {
 						if (sea[i][j] == 0) {
-							if (smell[i][j][0] != 0) {
-								smell[i][j][1]--;
+							if (smell[i][j][0] != 0) { // 냄새가 존재할때 -> 0이 아닐때
+								smell[i][j][1]--; // 냄새의 시간을 1 줄인다.
 								if (smell[i][j][1] <= 0) {
-									smell[i][j][0] = 0;
+									smell[i][j][0] = 0;  // 빈칸으로 만든다 -> 0이 된다.
 								}
 							}
 						} else {
 							smell[i][j] = new int[] { sea[i][j], k }; // 냄새를 남긴다.
+							// smell[i][j] = int[] = new int[] { sea[i][j], k };
+							
+							// smell[i][j][0] = sea[i][j];
+							// smell[i][j][1] = k;
 						}
 					}
 				}
