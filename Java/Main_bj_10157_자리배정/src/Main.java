@@ -3,6 +3,8 @@ import java.io.*;
 
 public class Main {
 
+	static int[] di = new int[] {1,0,-1,0}; // 상 우 하 좌
+	static int[] dj = new int[] {0,1,0,-1};
 	public static void main(String[] args) throws Exception {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream("res/input_bj_10157.txt")));
 		//BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -10,33 +12,46 @@ public class Main {
 		int T = Integer.parseInt(bf.readLine());
 		for(int test_case = 1;test_case <=T;test_case++)
 		{
-			
-			int[] dr = new int[] {0,1,0,-1};//상(0,1), 우(1,0), 하(0,-1), 좌(-1,0)
-			int[] dc = new int[] {1,0,-1,0};
-			
+			System.out.println("#"+test_case+ " ");
 			StringTokenizer st = new StringTokenizer(bf.readLine());
-			int r = Integer.parseInt(st.nextToken());
 			int c = Integer.parseInt(st.nextToken());
+			int r = Integer.parseInt(st.nextToken());
 			int[][] mat = new int[r][c];
 			int num = Integer.parseInt(bf.readLine());
-			int a = 0,b=0,cnt=0;
-			mat[0][0] = 1;
-			for(int i=2;i<=num;i++)
-			{
-				if(0<=a+dr[cnt%4]&&a+dr[cnt%4]<r&&0<=b+dc[cnt%4]&&b+dc[cnt%4]<c&&mat[a+dr[cnt%4]][b+dc[cnt%4]]==0)
+			int a = 0,b=0,cnt=1;
+			int d = 0;
+			int brk = 0;
+			mat[a][b] = cnt;
+			boolean f = false;
+			while(cnt < num)
+			{ 
+				int n_a = a+di[d%4];
+				int n_b = b+dj[d%4];
+				if(0<=n_a&&n_a<mat.length&&0<=n_b&&n_b<mat[0].length && mat[n_a][n_b]==0)
 				{
-					a+=dr[cnt%4];
-					b+=dc[cnt%4];
-					mat[a][b] = i;
+					mat[n_a][n_b] = ++cnt;
+					a = n_a;
+					b = n_b;
+					brk = 0;
 				}
-				// 여기에 강제 종료 조건을 추가해야 한다.
 				else
 				{
-					cnt++;
+					d++;
+					if(brk++==4)
+					{
+						f = true;
+						break;
+					}
 				}
 			}
-			System.out.println((a+1)+" "+(b+1));
-			System.out.println();
+			/*for(int i=0;i<mat.length;i++)
+			{
+				System.out.println(Arrays.toString(mat[i]));
+			}*/
+			if(f)
+				System.out.println("0");
+			else
+				System.out.println((b+1)+" "+(a+1));
 		}
 		
 	}
