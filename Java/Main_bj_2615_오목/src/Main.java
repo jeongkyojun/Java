@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-
+보류
 class Main {
 
 	static void search(int[][]mat,int dir,int color,int x, int y)
