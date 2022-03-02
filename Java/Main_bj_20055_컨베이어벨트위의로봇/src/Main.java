@@ -24,17 +24,9 @@ public class Main {
 			for (int i = 1; i <= 2*N; i++) {
 				conveyor[i] = Integer.parseInt(st.nextToken());
 			}
-			/*
-			System.out.println("0");
-			System.out.println("C : "+Arrays.toString(conveyor));
-			System.out.println("R : "+Arrays.toString(Robot));
-			System.out.println();
-			*/
 			int turn = 0;
 			int z = 0;
-			//for(int x= 0;x<10;x++) {
 			while (true) {
-				//System.out.println("turn ## "+turn);
 				turn++;
 				conveyor[0] = conveyor[2 * N];
 				Robot[0] = Robot[2*N];
@@ -46,12 +38,7 @@ public class Main {
 				
 				conveyor[0] = 0;
 				Robot[0] = false;
-				/*
-				System.out.println("1");
-				System.out.println("C : "+Arrays.toString(conveyor));
-				System.out.println("R : "+Arrays.toString(Robot));
-				System.out.println();
-				*/
+
 				// 2. 로봇이동
 				for (int i = N; i >= 1; i--) {
 					// 참이면 N-1이되거나, 앞에 도착할때까지 간다.
@@ -72,64 +59,23 @@ public class Main {
 								if(conveyor[i+1]==0)
 									z++;
 							}
-							
-							/*
-							int next_i = i;
-							// 로봇을 컨베이어 끝까지 내리거나 앞에 로봇이있을때까지 민다.
-							while (next_i <= N && !Robot[next_i+1] && (next_i==N||conveyor[next_i+1]>0)) {
-								if(next_i == N)
-								{
-									Robot[next_i] = false; // 로봇을 내린다.
-									break;
-								}
-								else
-								{
-									
-									Robot[next_i++] = false;// 이동시킨다
-									Robot[next_i] = true; // 옮겼다
-									conveyor[next_i]--; //내구도가 1 줄었다.
-									if(conveyor[next_i]==0) // 내구도가 0이면 카운트+1
-										z++;
-								}
-								
-								
-								System.out.println("-------------------");
-								System.out.println("move");
-								System.out.println("C : "+Arrays.toString(conveyor));
-								System.out.println("R : "+Arrays.toString(Robot));
-								System.out.println("i : "+next_i+" , "+N);
-								System.out.println("-------------------");
-								
-								
-							}
-							*/
+
 						}
 					}
 				}
-				/*
-				System.out.println("2");
-				System.out.println("C : "+Arrays.toString(conveyor));
-				System.out.println("R : "+Arrays.toString(Robot));
-				System.out.println();
-				*/
+
 				// 3. 로봇을 올린다.
-				if(conveyor[1]>0 && !Robot[1])
+				if(conveyor[1]>0)
 				{
 					conveyor[1]--;
 					if(conveyor[1]==0) // 내구도가 0이면 카운트+1
 						z++;
 					Robot[1] = true;
 				}
-				/*
-				System.out.println("3");
-				System.out.println("C : "+Arrays.toString(conveyor));
-				System.out.println("R : "+Arrays.toString(Robot));
-				System.out.println();
-				*/
+
 				// 4. 0짜리가 K개 이상이면 종료
 				if(z>=K)
 					break;
-				//System.out.println("z : "+z);
 			}
 			System.out.println(turn);
 		}///////////////////////////////////

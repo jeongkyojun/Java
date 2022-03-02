@@ -19,7 +19,6 @@ public class Main {
 
 			int[][] sea = new int[4][4];
 			int[][] dir = new int[4][4];
-			int[] shark = new int[] { 0, 0 };
 			int[][] point = new int[17][];
 
 			point[0] = new int[] { 0, 0 };
@@ -97,7 +96,6 @@ public class Main {
 				if (cnt == 9) {
 					System.out.println("ERROR");
 					System.exit(1);
-					;
 				}
 			}
 
@@ -136,7 +134,6 @@ public class Main {
 		int n_j = shark[1];
 		sea[n_i][n_j] = 0;// 현재 위치는 빈공간으로 변경
 		dir[n_i][n_j] = -1;
-		int cnt = 0;
 		while (0 <= n_i + di[d] && n_i + di[d] < 4 && 0 <= n_j + dj[d] && n_j + dj[d] < 4) // 칸이 존재하면 반복
 		{
 			if(sea[n_i+di[d]][n_j+dj[d]]==0)
@@ -145,7 +142,6 @@ public class Main {
 				n_j += dj[d];
 				continue;
 			}
-			// System.out.println("?>");
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
 					tmp[i][j] = sea[i][j];

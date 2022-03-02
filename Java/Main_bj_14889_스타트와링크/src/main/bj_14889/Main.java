@@ -61,12 +61,6 @@ public class Main {
 			}
 			Cal(mat,M, B, 2,0,0);
 			Cal2(mat,M,B2, 2,0,0);
-			/*System.out.println();
-			System.out.println(Arrays.toString(B));
-			System.out.println(sum1);
-			System.out.println(Arrays.toString(B2));
-			System.out.println(sum2);
-			System.out.println();*/
 			if(min>Math.abs(sum1-sum2))
 				min = Math.abs(sum1-sum2);
 			return;
@@ -82,10 +76,6 @@ public class Main {
 	{
 		if(cnt==n)
 		{
-			//System.out.println("sum1");
-			//System.out.println("B : "+Arrays.toString(B));
-			//System.out.println(Arrays.toString(M));
-			//System.out.println();
 			sum1+=mat[M[0]][M[1]];
 			sum1+=mat[M[1]][M[0]];
 			return;
@@ -100,10 +90,6 @@ public class Main {
 	{
 		if(cnt==n)
 		{
-			//System.out.println("sum2");
-			//System.out.println("B : "+Arrays.toString(B));
-			//System.out.println(Arrays.toString(M));
-			//System.out.println();
 			sum2+=mat[M[0]][M[1]];
 			sum2+=mat[M[1]][M[0]];
 			return;
