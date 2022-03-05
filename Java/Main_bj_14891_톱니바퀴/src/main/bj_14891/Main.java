@@ -19,7 +19,7 @@ public class Main {
 			for (int i = 1; i <= 4; i++) {
 				String g_str = bf.readLine();
 				for (int j = 1; j <= 8; j++) {
-					gear[i][j] = g_str.charAt(j - 1) - 0x30;
+					gear[i][j] = g_str.charAt(j - 1) - 0x30;//'0' '1' - 48
 				}
 			}
 		/*	System.out.println();
@@ -71,20 +71,7 @@ public class Main {
 			}
 			gear[gear_num][8] = gear[gear_num][0];
 		}
-		/*System.out.println("gear_num : "+gear_num);
-		if (m != 0) {
-			System.out.println(m == 1 ? "right" : "left");
-			for (int j = 0; j < 5; j++) {
-				System.out.println(Arrays.toString(gear[j]));
-			}
-			System.out.println();
-		} else {
-			System.out.println("first");
-			for (int j = 0; j < 5; j++) {
-				System.out.println(Arrays.toString(gear[j]));
-			}
-			System.out.println();
-		}*/
+
 		// m = 1 :우측으로 진행중(->), m = -1 : 좌측으로 진행중(<-)
 		if (m != 1 && gear_num > 1) // 1초과 = 좌측에 톱니바퀴가 존재한다
 		{
