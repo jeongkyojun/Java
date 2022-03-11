@@ -15,8 +15,6 @@ public class Main {
 
 			int[][] mat = new int[10][10];
 			boolean[][] B = new boolean[10][10];
-			int[] perm = new int[5];
-			boolean[] chk = new boolean[5];
 
 			for (int i = 0; i < 10; i++) {
 				StringTokenizer st = new StringTokenizer(bf.readLine());
@@ -32,13 +30,13 @@ public class Main {
 		}
 	}
 
-	static void Search(int[][] mat, boolean[][] B, int s_i, int s_j, int paper, int one, int two, int three, int four,
-			int five, int res) {
+	static void Search(int[][] mat, boolean[][] B, int s_i, int s_j, int paper, 
+			int one, int two, int three, int four, int five, int res) {
 		if(min!=-1 && res>min)
 			return;
 		// 예비 입력
 		boolean[][] tmp = new boolean[10][10];
-		int[][] tmp_mat = new int[10][10];
+		int[][] tmp_mat = new int[10][10]; // 체크용
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				tmp[i][j] = B[i][j];
@@ -48,7 +46,7 @@ public class Main {
 		for (int i = s_i; i < s_i + paper; i++) {
 			for (int j = s_j; j < s_j + paper; j++) {
 				tmp[i][j] = false;
-				tmp_mat[i][j] = paper+1;
+				tmp_mat[i][j] = paper+1; //체크용
 			}
 		}
 
@@ -64,7 +62,6 @@ public class Main {
 		find : for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				if (tmp[i][j]) {
-					//System.out.println("find - continue");
 					find = true;
 					break find;
 				}
@@ -80,9 +77,7 @@ public class Main {
 		int n = 0;
 		rec: for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				//System.out.println(i+" , "+j);
 				if (tmp[i][j]) {
-					//System.out.println("find "+i+" , "+j);
 					for (int x = 1; x <= 5; x++) {
 						if(i+x>10||j+x>10)
 							break;

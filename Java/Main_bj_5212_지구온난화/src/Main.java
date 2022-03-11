@@ -33,11 +33,13 @@ public class Main {
 			{
 				for(int j=0;j<C;j++)
 				{
+					// 바다인경우 -> 50년 뒤에도 바다
 					if(mat[i][j]=='.')
 					{
 						tmp[i][j] = '.';
 						continue;
 					}
+					// 육지인 경우 계산하여 복사
 					int cnt = 0;
 					for(int d=0;d<4;d++)
 					{
@@ -61,6 +63,13 @@ public class Main {
 					}
 				}
 			}
+			
+			System.out.println();
+			for(int i=0;i<R;i++)
+			{
+				System.out.println(Arrays.toString(tmp[i]));
+			}
+			System.out.println();
 			
 			int is=0,ie=R;
 			int js=0,je=C;
@@ -144,5 +153,4 @@ public class Main {
 			}
 		}
 	}
-
 }
