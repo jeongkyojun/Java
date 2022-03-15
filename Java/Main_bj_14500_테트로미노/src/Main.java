@@ -175,7 +175,7 @@ public class Main {
 		
 		if(0<= j+1 && j+1 < mat[i].length && 0<=i+1 && i+1<mat.length)
 		{
-			// 18(세로 우상 번개)
+			// 19(사각형)
 			r = mat[i][j] + mat[i][j+1]+mat[i+1][j] + mat[i+1][j+1];
 			res = res>r?res:r;
 		}
