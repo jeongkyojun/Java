@@ -32,6 +32,8 @@ public class Main {
 			}
 			int move = Integer.parseInt(bf.readLine());
 			int[] time = new int[10001];
+			
+			// 시간과 시간에 따른 뱀의 이동방향 변화를 저장한다.
 			for(int i=0;i<move;i++)
 			{
 				StringTokenizer st = new StringTokenizer(bf.readLine());
@@ -45,7 +47,8 @@ public class Main {
 					time[X] = -1;
 			}
 			int res = 0;
-			/*
+			
+			
 			System.out.println("---------start---------");
 			for(int i=1;i<=N;i++)
 			{
@@ -56,21 +59,25 @@ public class Main {
 				System.out.println();
 			}
 			System.out.println("-----------------------");
-			*/
+			
+			
+			// 게임 시작
 			game : for(int turn = 0; turn<=10000;turn++)
 			{
-				// 방향 조정
+				// 방향 조정 - 뱀의 방향을 정한다.
 				if(time[turn]!=0)
 				{
 					d+=4;
 					d+=time[turn];
 					d%=4;
 				}
+				
 				int size = snake.size();	// 큐의 사이즈
 				int[] before = new int[] {-1,-1}; // 이전위치
 				boolean eatApple = false; // 사과를 먹었는지여부
 				//System.out.println("size : "+size);
 
+				// 뱀 이동 - 뱀의 모든 관절 하나씩 이동시킨다.
 				for(int i=0;i<size;i++)
 				{
 					int[] tmp = snake.poll();
@@ -83,7 +90,7 @@ public class Main {
 						// 현재값을 이전값에 미리 저장
 						before = new int[] {s[0],s[1]};
 						
-						// 만약 몸에 닿으면 종료한다.
+						// 만약 몸 또는 벽에 닿으면 종료한다.
 						if(s[0]+di[d]<=0||s[0]+di[d]>N||
 								s[1]+dj[d]<=0||s[1]+dj[d]>N
 								||mat[s[0]+di[d]][s[1]+dj[d]]==2)
@@ -127,7 +134,7 @@ public class Main {
 					}
 					
 				}
-				/*
+				
 				System.out.println("-----------------------");
 				for(int a=1;a<=N;a++)
 				{
@@ -138,7 +145,6 @@ public class Main {
 					System.out.println();
 				}
 				System.out.println("-----------------------");
-				*/
 			}
 			System.out.println(res);
 		}
