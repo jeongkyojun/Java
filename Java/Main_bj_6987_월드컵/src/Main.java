@@ -29,43 +29,6 @@ public class Main {
 			}
 		}
 	}
-	/*
-	static void setPossible(int[][] country , int a, int b)
-	{
-		if(a==6)
-		{
-			possible = true;
-			for(int i=0;i<6;i++)
-			{
-				if(country[i][0]!=0||country[i][1]!=0||country[i][2]!=0)
-				{
-					possible = false;
-					return;
-				}
-			}
-			return;
-		}
-		for(int j=b;j<6;j++)
-		{
-			if(country[a][0]>0 && country[j][2]>0)
-			{
-				country[a][0]--;
-				country[j][2]--;
-			}
-			if(country[a][1]>0 && country[j][1]>0)
-			{
-				country[a][1]--;
-				country[j][1]--;
-			}
-			if(country[j][0]>0 && country[a][2]>0)
-			{
-				country[j][0]--;
-				country[a][2]--;
-			}
-		}
-		setPossible(country,a+1,a+2);
-	}
-	*/
 
 	static void setPossible(int[][] country , int a, int b)
 	{
@@ -85,6 +48,10 @@ public class Main {
 		if(b==6) setPossible(country,a+1,a+2);
 		else
 		{
+			// 1 - 2 3 4 5 6
+			// 2 - 3 4 5 6
+			// 3 - 4 5 6
+			//...
 			if(country[a][0]>0 && country[b][2]>0)
 			{
 				country[a][0]--;

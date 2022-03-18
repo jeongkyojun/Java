@@ -17,6 +17,37 @@ public class Main {
 			int H = Integer.parseInt(st.nextToken()); // 놓을수 있는 위치의 개수
 			
 			int[][] mat = new int[N][H];
+			boolean[][] ladder = new boolean[N][H];
+			
+			for(int i=0;i<N;i++)
+			{
+				mat[i][0] = i+1;
+			}
+			for(int i=0;i<M;i++)
+			{
+				st = new StringTokenizer(bf.readLine());
+				int a = Integer.parseInt(st.nextToken());
+				int b = Integer.parseInt(st.nextToken());
+				ladder[a][b] = true;
+			}
+			
+			for(int j=1;j<H;j++)
+			{
+				for(int i=0;i<N-1;i++)
+				{
+					if(ladder[i][j])
+					{
+						mat[i+1][j] = mat[i][j-1];
+						mat[i][j] = mat[i+1][j-1];
+						i++;
+					}
+					else
+					{
+						mat[i][j] = mat[i][j-1];
+					}
+				}
+			}
+			System.out.println(Arrays.toString(mat[H-1]));
 		}
 
 	}
