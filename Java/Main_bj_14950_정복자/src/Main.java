@@ -53,7 +53,7 @@ public class Main {
 				int w = Integer.parseInt(st.nextToken());
 				pq.offer(new pair(u-1,v-1,w));
 			}
-			// 변형된 prim을 사용
+			// kruskal을 사용
 			/*
 			 * 가장 작은 값을 가진 노드들을 기준으로 greedy 수행,
 			 * 노드 a와 b에 대해 union 수행
