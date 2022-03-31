@@ -27,42 +27,39 @@ public class Main {
 				}
 			}
 
-			filling(chk, mat, 0, 0);
+			filling_bfs(chk, mat, 0, 0);
 			int before = 0;
 			int now;
-			loop : for (int t = 0; t < 10000; t++) {
-				
+			loop: for (int t = 0; t < 10000; t++) {
+
 				System.out.println();
-				for(int x=0;x<mat.length;x++)
-				{
+				for (int x = 0; x < mat.length; x++) {
 					System.out.println(Arrays.toString(mat[x]));
 				}
 				System.out.println();
-				
+
 				boolean[][] chk_tmp = new boolean[R][C];
 				now = 0;
 				for (int i = 0; i < mat.length; i++) {
 					for (int j = 0; j < mat[i].length; j++) {
-						
+
 						if (mat[i][j] == 1) {
 							now++;
-							for(int d=0;d<4;d++)
-							{
+							for (int d = 0; d < 4; d++) {
 								// 공간이 존재하고, 공기와 노출된 곳이 있는경우
-								if (0 <= i + di[d] && i + di[d] < chk.length && 0 <= j + dj[d] && j + dj[d] < chk[0].length
-										&& chk[i + di[d]][j + dj[d]]) {
+								if (0 <= i + di[d] && i + di[d] < chk.length && 0 <= j + dj[d]
+										&& j + dj[d] < chk[0].length && chk[i + di[d]][j + dj[d]]) {
 									mat[i][j] = 0; // 치즈는 녹고
-									filling(chk_tmp,mat,i,j); // 공기 또한 통한다.
+									filling_bfs(chk_tmp, mat, i, j); // 공기 또한 통한다.
 								}
 							}
-						}else {
+						} else {
 							mat[i][j] = 0;
 						}
 					}
 				}
-				
-				if(now==0)
-				{
+
+				if (now == 0) {
 					System.out.println(t);
 					System.out.println(before);
 					break loop;
@@ -79,6 +76,22 @@ public class Main {
 			if (0 <= i + di[d] && i + di[d] < chk.length && 0 <= j + dj[d] && j + dj[d] < chk[0].length
 					&& mat[i + di[d]][j + dj[d]] == 0 && !chk[i + di[d]][j + dj[d]]) {
 				filling(chk, mat, i + di[d], j + dj[d]);
+			}
+		}
+	}
+
+	static void filling_bfs(boolean[][] chk, int[][] mat, int i, int j) {
+		chk[i][j] = true;
+		Queue<int[]> q = new LinkedList<int[]>();
+		q.offer(new int[] { i, j });
+		while (!q.isEmpty()) {
+			int[] tmp = q.poll();
+			for (int d = 0; d < 4; d++) {
+				if (0 <= tmp[0] + di[d] && tmp[0] + di[d] < chk.length && 0 <= tmp[1] + dj[d] && tmp[1] + dj[d] < chk[0].length
+						&& mat[tmp[0] + di[d]][tmp[1] + dj[d]] == 0 && !chk[tmp[0] + di[d]][tmp[1] + dj[d]]) {
+					chk[tmp[0]+di[d]][tmp[1]+dj[d]] = true;
+					q.offer(new int[] {tmp[0]+di[d],tmp[1]+dj[d]});
+				}
 			}
 		}
 	}
