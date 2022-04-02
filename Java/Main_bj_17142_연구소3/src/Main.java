@@ -53,32 +53,30 @@ public class Main {
 	// 2. int[][] tmp 가 아닌 boolean[][] tmp를 사용하여 tmp 생성시 사용되는 메모리 양을 감소시킴
 	static void comb(int[][] mat,Queue<int[]>q, int[][] v, int b, int n, int p, int cnt, int num, int size) {
 		if (cnt == n) {
-			// System.out.println("b : "+b);
-			q.clear();
+			q.clear(); // 큐 초기화
 			//int[][] tmp = new int[mat.length][mat[0].length];
 			boolean[][]tmp = new boolean[mat.length][mat[0].length];
+			
+			// bfs를 수행할 칸 tmp를 저장
 			for (int i = 0; i < mat.length; i++) {
 				for (int j = 0; j < mat[i].length; j++) {
 					//tmp[i][j] = mat[i][j];
 					if(mat[i][j]==-2)
-						tmp[i][j] = true;
+						tmp[i][j] = true; //벽이면 방문처리
 					else
 						tmp[i][j] = false;
 				}
 			}
-			// System.out.print("sel : ");
+			
+			// 큐에 바이러스 지점을 저장
 			for (int i = 0; i < size; i++) {
 				int x = 1 << i;
-				// System.out.println(x+" , "+(x&b));
 				if ((x & b) != 0) {
-					// System.out.print(i+" ");
 					q.offer(new int[] { v[i][0], v[i][1] });
-					tmp[v[i][0]][v[i][1]] = true;
+					tmp[v[i][0]][v[i][1]] = true; // 방문처리
 				}
 			}
-			// System.out.println();
-			//System.out.println("num : " + num);
-			int m = vir_turn(mat, tmp, q, num);
+			int m = vir_turn(mat, tmp, q, num); // bfs 수행
 			if (min == -1 || (m != -1 && min > m))
 				min = m;
 		}
@@ -93,7 +91,7 @@ public class Main {
 			int size = q.size();
 			if (num == 0)
 				return max;
-			max++;
+			max++; // 시간 증가
 			for (int i = 0; i < size; i++) {
 				int[] p = q.poll();
 				for (int d = 0; d < 4; d++) {
@@ -108,9 +106,10 @@ public class Main {
 					}
 				}
 			}
-			/*for (int i = 0; i < mat.length; i++)
+			
+			for (int i = 0; i < mat.length; i++)
 				System.out.println(Arrays.toString(mat[i]));
-			System.out.println();*/
+			System.out.println();
 		}
 		return -1;
 	}
