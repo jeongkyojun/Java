@@ -4,6 +4,7 @@ import java.io.*;
 public class Solution {
 
 	static int min;
+	static int max;
 	static int[] di = new int[] { -1, 1, 0, 0 }; // 상, 하, 좌, 우
 	static int[] dj = new int[] { 0, 0, -1, 1 };
 
@@ -31,66 +32,57 @@ public class Solution {
 				}
 			}
 
+			max = -1;
 			min = Integer.MAX_VALUE;
-			process_perm(mat, processor, pnum, 0, 0);
+			process_perm(mat, processor, pnum, 0, 0, 0);
 			System.out.println(min);
 		}
 
 	}
 
-	static void process_perm(int[][] mat, int[][] processor, int n, int cnt, int res) {
-		int[][] tmp = new int[mat.length][mat[0].length];
-
-		if(min<res)
-			return;
-		// 모든 경우의 수인경우
+	static void process_perm(int[][] mat, int[][] processor, int n, int cnt, int res, int core_num) {		
 		if (cnt == n) {
-			
-			for(int i=0;i<mat.length;i++)
-			{
-				System.out.println(Arrays.toString(mat[i]));
-			}
-			System.out.println();
-			
-			if (res < min) {
+			if (core_num > max) {
+				max = core_num;
 				min = res;
+			} else if (core_num == max) {
+				if (res < min) {
+					min = res;
+				}
 			}
 			return;
 		}
 		// 프로세서 위치 확인
 		int pi = processor[cnt][0];
 		int pj = processor[cnt][1];
-
 		// 프로세서가 그대로인경우 건너 뛴다.
-		if(pi == 0 || pj==0 || pi==mat.length-1||pj == mat[0].length-1)
-		{
-			process_perm(mat, processor, n, cnt + 1, res);
+		if (pi == 0 || pj == 0 || pi == mat.length - 1 || pj == mat[pi].length - 1) {
+			process_perm(mat, processor, n, cnt + 1, res, core_num + 1);
 			return;
 		}
-		
+		int[][] tmp = new int[mat.length][mat[pi].length];
 		dir: for (int d = 0; d < 4; d++) {
 			int k = 0;
 			int ni = pi;
 			int nj = pj;
-			
 			// tmp 초기화
 			for (int i = 0; i < mat.length; i++) {
 				for (int j = 0; j < mat[0].length; j++) {
 					tmp[i][j] = mat[i][j];
 				}
 			}
-
 			// 방향 지정
 			while (0 <= ni + di[d] && ni + di[d] < mat.length && 0 <= nj + dj[d] && nj + dj[d] < mat[0].length) {
-				if (mat[ni + di[d]][nj + dj[d]] != 0)
+				if (mat[ni + di[d]][nj + dj[d]] != 0) {
 					continue dir;
+				}
 				tmp[ni + di[d]][nj + dj[d]] = cnt + 1;
 				ni += di[d];
 				nj += dj[d];
 				k++;
 			}
-			//System.out.println((cnt+1)+" : "+k);
-			process_perm(tmp, processor, n, cnt + 1, res + k);
+			process_perm(tmp, processor, n, cnt + 1, res + k, core_num + 1);
 		}
+		process_perm(mat, processor, n, cnt + 1, res, core_num);
 	}
 }

@@ -5,104 +5,108 @@ import java.util.*;
 public class Main {
 
 	static int max;
-	static int[] di = new int[] {0,-1,0};
-	static int[] dj = new int[] {-1,0,1};
-	
-	public static void main(String[] args) throws Exception{
+	static int[] di = new int[] { 0, -1, 0 };
+	static int[] dj = new int[] { -1, 0, 1 };
+
+	public static void main(String[] args) throws Exception {
 		System.setIn(new FileInputStream("res/input_bj_17135.txt"));
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		
+
 		int T = Integer.parseInt(bf.readLine());
-		for(int test_case =1; test_case<=T;test_case++)
-		{
+		for (int test_case = 1; test_case <= T; test_case++) {
 			StringTokenizer st = new StringTokenizer(bf.readLine());
-			
+
 			int N = Integer.parseInt(st.nextToken());
 			int M = Integer.parseInt(st.nextToken());
 			int D = Integer.parseInt(st.nextToken());
-			
+
 			int[] pos = new int[3];
 			int[] shoot = new int[N];
 			int[][] mat = new int[N][M];
-			for(int i=0;i<N;i++)
-			{
+			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(bf.readLine());
-				for(int j=0;j<M;j++)
-				{
+				for (int j = 0; j < M; j++) {
 					mat[i][j] = Integer.parseInt(st.nextToken());
 				}
 			}
-			
+
 			max = -1;
-			Defense(mat, pos, 0, 3,0);
+			Defense(mat, pos, 0, 3, 0, D);
 			System.out.println(max);
 		}
 	}
 
-	static void Defense(int[][] mat, int[] pos, int p, int n,int cnt)
-	{
-		if(cnt==n)
-		{
+	static void Defense(int[][] mat, int[] pos, int p, int n, int cnt, int D) {
+		if (cnt == n) {
 			//System.out.println(Arrays.toString(pos));
 			boolean[][] tmp = new boolean[mat.length][mat[0].length];
-			for(int i=0;i<mat.length;i++)
-			{
-				for(int j=0;j<mat[0].length;j++)
-				{
-					tmp[i][j] = mat[i][j]==1?true:false;
+			for (int i = 0; i < mat.length; i++) {
+				for (int j = 0; j < mat[0].length; j++) {
+					tmp[i][j] = mat[i][j] == 1 ? true : false;
 				}
 			}
-			int num = Hit(tmp,pos);
-			
-			if(max<num)
+			int num = Hit(tmp, pos, D);
+			//System.out.println("num : "+num);
+			if (max < num)
+			{
+				//System.out.println(Arrays.toString(pos));
 				max = num;
+			}
 			return;
 		}
-		for(int i=p;i<mat[0].length;i++)
-		{
+		for (int i = p; i < mat[0].length; i++) {
 			pos[cnt] = i;
-			Defense(mat,pos,i+1,n,cnt+1);
+			Defense(mat, pos, i + 1, n, cnt + 1, D);
 		}
 	}
-	
-	static int Hit(boolean[][] mat, int[] pos)
-	{
+
+	static int Hit(boolean[][] mat, int[] pos, int D) {
 		Queue<int[]> q = new LinkedList<int[]>();
 		int cnt = 0;
-		for(int i=mat.length-1;i>=0;i--)
-		{
-			for(int j=0;j<3;j++)
-			{
-				/*
-				 * 종료조건을 달아야 함(최대 사정거리)
-				 */
-				
-				//mat : i, pos = j
+		for (int i = mat.length - 1; i >= 0; i--) {
+			int[][] lst = new int[][] {{-1,-1},{-1,-1},{-1,-1}};
+			for (int j = 0; j < 3; j++) {
+				// mat[i][pos[j]] = 제일 가까이 있는 적의 위치
 				// bfs 수행
 				q.clear();
-				q.offer(new int[] {i,j});
-				boolean[][] chk = new boolean[mat.length][mat[0].length]; // 체크용
-				bfs:while(!q.isEmpty())
+				if(mat[i][pos[j]]) // 바로 적이 있는경우
 				{
-					int[] tmp = q.poll();
-					for(int d=0;d<3;d++)
-					{
-						// 길이 존재하고, 방이 있는경우
-						if(0<=tmp[0]+di[d] && tmp[0]+di[d]<mat.length && 0<= tmp[1]+dj[d] && tmp[1]+dj[d]<mat[0].length &&
-								!chk[tmp[0]+di[d]][tmp[1]+dj[d]])
-						{
-							// 적이 있는경우
-							if(mat[tmp[0]+di[d]][tmp[1]+dj[d]])
-							{
-								// 적을 사살
-								mat[tmp[0]+di[d]][tmp[1]+dj[d]] = false;
-								cnt++;// 카운트 증가
-								break bfs;// 탐색 끝
+					lst[j] = new int[] {i,pos[j]}; // 타겟 저장
+					continue;// 탐색 끝
+				}
+				
+				q.offer(new int[] { i, pos[j] }); // 큐에 값을 넣는다
+				boolean[][] chk = new boolean[mat.length][mat[0].length]; // 체크용
+				int time = 1; // 탐색시간 = 사정거리
+				bfs: while (!q.isEmpty()) {
+					int size = q.size(); // 사이즈를 받아 그룹화
+					if(++time>D) break; // 사정거리 밖이면 포기
+					for (int s = 0; s < size; s++) {
+						int[] tmp = q.poll();
+						for (int d = 0; d < 3; d++) {
+							// 길이 존재하고, 방이 있는경우
+							if (0 <= tmp[0] + di[d] && tmp[0] + di[d] < mat.length && 0 <= tmp[1] + dj[d]
+									&& tmp[1] + dj[d] < mat[0].length && !chk[tmp[0] + di[d]][tmp[1] + dj[d]]) {
+								// 적이 있는경우
+								if (mat[tmp[0] + di[d]][tmp[1] + dj[d]]) {
+									lst[j] = new int[] {tmp[0]+di[d],tmp[1]+dj[d]}; // 타겟 위치를 저장한다.
+									break bfs;// 탐색 끝
+								}
+								chk[tmp[0] + di[d]][tmp[1] + dj[d]] = true; // 못찾으면 방문처리
+								q.offer(new int[] { tmp[0] + di[d], tmp[1] + dj[d] }); // 큐에 값 넣기
 							}
-							chk[tmp[0]+di[d]][tmp[1]+dj[d]] = true; // 못찾으면 탐색처리
-							q.offer(new int[] {tmp[0]+di[d],tmp[1]+dj[d]}); // 다음 번에 하도록
 						}
 					}
+				}
+			}
+			
+			for(int j=0;j<3;j++)
+			{
+				if(lst[j][0]==-1) continue;
+				if(mat[lst[j][0]][lst[j][1]]) // 아직 맞춘 적이 아니면
+				{
+					mat[lst[j][0]][lst[j][1]] = false; // 사살처리
+					cnt++; // 카운트 +1
 				}
 			}
 		}
