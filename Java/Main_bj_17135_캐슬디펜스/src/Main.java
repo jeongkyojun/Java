@@ -38,7 +38,6 @@ public class Main {
 
 	static void Defense(int[][] mat, int[] pos, int p, int n, int cnt, int D) {
 		if (cnt == n) {
-			//System.out.println(Arrays.toString(pos));
 			boolean[][] tmp = new boolean[mat.length][mat[0].length];
 			for (int i = 0; i < mat.length; i++) {
 				for (int j = 0; j < mat[0].length; j++) {
@@ -46,10 +45,8 @@ public class Main {
 				}
 			}
 			int num = Hit(tmp, pos, D);
-			//System.out.println("num : "+num);
 			if (max < num)
 			{
-				//System.out.println(Arrays.toString(pos));
 				max = num;
 			}
 			return;

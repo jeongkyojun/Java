@@ -21,7 +21,6 @@ public class Main {
 			int[][] mat = new int[N][M];
 			int[][][] route = new int[N][M][2];
 			
-			
 			route[N - 1][M - 1] = new int[] { -1, -1 };
 
 			for (int i = 0; i < N; i++) {
@@ -55,7 +54,6 @@ public class Main {
 						{
 							if(mat[tmp[0]+di[d]][tmp[1]+dj[d]]==0) // 벽이 아닌경우
 							{
-								//System.out.println("--");
 								// 만약 방문한적 없는 길이라면 값을 갱신한다.
 								if(route[tmp[0]+di[d]][tmp[1]+dj[d]][tmp[2]]==0||route[tmp[0]+di[d]][tmp[1]+dj[d]][tmp[2]]==-1)
 								{
@@ -63,48 +61,19 @@ public class Main {
 									q.offer(new int[] {tmp[0]+di[d],tmp[1]+dj[d],tmp[2]});
 								}
 							}
-							else
+							else // 벽인경우
 							{
-								//System.out.println("--?");
 								//아직 벽을 뚫은적 없고, 빈공간이라면
-								//System.out.println(Arrays.toString(tmp));
-								//System.out.println(route[tmp[0]+di[d]][tmp[1]+dj[d]][1]);
 								if(tmp[2]==0 && route[tmp[0]+di[d]][tmp[1]+dj[d]][1]==0||route[tmp[0]+di[d]][tmp[1]+dj[d]][1]==-1)
 								{
-									//System.out.println("!");
 									route[tmp[0]+di[d]][tmp[1]+dj[d]][1] = time;
 									q.offer(new int[] {tmp[0]+di[d],tmp[1]+dj[d],1});
 								}
 							}
 						}
 					}
-					/*
-					for(int i=0;i<N;i++)
-					{
-						for(int j=0;j<M;j++)
-							System.out.print(route[i][j][1]+" ");
-						System.out.println();
-					}
-					System.out.println();*/
 				}
 			}
-			/*
-			for(int i=0;i<N;i++)
-			{
-				for(int j=0;j<M;j++)
-					System.out.print(route[i][j][0]+" ");
-				System.out.println();
-			}
-			System.out.println();
-			for(int i=0;i<N;i++)
-			{
-				for(int j=0;j<M;j++)
-					System.out.print(route[i][j][1]+" ");
-				System.out.println();
-			}
-			
-			System.out.println("result");
-			*/
 			if(route[N-1][M-1][0]==-1)
 				System.out.println(route[N-1][M-1][1]);
 			else if(route[N-1][M-1][1]==-1)

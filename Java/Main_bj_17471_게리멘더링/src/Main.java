@@ -21,7 +21,6 @@ public class Main {
 			int N = Integer.parseInt(bf.readLine());
 			boolean[][] mat = new boolean[N][N];
 			int[] ppl = new int[N];
-			int[] U = new int[N];
 			boolean[] team = new boolean[N];
 			int max=0;
 			min = -1;
@@ -45,18 +44,21 @@ public class Main {
 			System.out.println(min);
 		}
 	}
+	
+	// mat : 그래프, team : 서브셋 결과 , ppl : 노드 가중치
+	// Ateam&Bteam : 각 팀의 가중치값 , num : 특정 팀의 숫자
 	static void Divide(boolean[][] mat,boolean[] team, int[] ppl, int cnt, int Ateam, int Bteam,int num)
 	{
 		if(cnt==team.length)
 		{
+			System.out.println(Arrays.toString(team));
 			// 하나로 통일되어있는경우 return
-			if(num==0||num==team.length)return;
+			if(num==0||num==team.length)return; // 모두 같은 팀인경우, return
+			
 			int sub = Math.abs(Ateam-Bteam);
-			if(min!=-1 && sub>min) return;
-			
-			if(!check(mat, team)) return;
-			
-			
+			if(!check(mat, team)) return; 
+			// 1-0-1 또는 0-1-0 과 같이 같은 팀이 분리되어있는경우를 의미 , return 한다
+
 			if(min==-1||min>sub)
 			{
 				min = sub;
@@ -65,8 +67,9 @@ public class Main {
 		}
 		// 팀별로 나눈다.
 		team[cnt]=true;
-		Divide(mat, team, ppl, cnt+1, Ateam,Bteam,num+1);
+		Divide(mat, team, ppl, cnt+1, Ateam,Bteam,num+1); // 팀은 그대로
 		team[cnt]=false;
+		// 팀 이동 Ateam -> Bteam으로 ppl[cnt]만큼 옮겨준다.
 		Divide(mat, team, ppl, cnt+1, Ateam-ppl[cnt],Bteam+ppl[cnt],num);
 	}
 
@@ -74,17 +77,17 @@ public class Main {
 		boolean[] chk = new boolean[team.length];
 		Queue<Integer> q = new LinkedList<Integer>();
 		int tnum = 0;
-		for(int i=0;i<team.length;i++)
+		for(int i=0;i<team.length;i++) // 모든 노드 탐색
 		{
 			q.clear();
-			if(chk[i]) continue;
+			if(chk[i]) continue; // 이미 방문한 노드면 pass
 			
-			boolean myteam = team[i];
-			chk[i] = true;
+			boolean myteam = team[i]; // 팀 정보를 가져온다
+			chk[i] = true; // 방문처리
 			q.offer(i);
-			if(++tnum>2) return false;
+			if(++tnum>2) return false; // 세번째 bfs시 false 반환
 			
-			while(!q.isEmpty())
+			while(!q.isEmpty()) // bfs를 사용해 같은팀 인접 노드를 모두 방문처리
 			{
 				int tmp = q.poll();
 				for(int a=0;a<mat.length;a++)
@@ -98,6 +101,6 @@ public class Main {
 				}
 			}
 		}
-		return true;
+		return true; // true 반환
 	}
 }
