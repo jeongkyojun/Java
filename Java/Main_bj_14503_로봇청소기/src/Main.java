@@ -35,11 +35,9 @@ public class Main {
 			}
 
 			int clean = 0;
-
 			
 			int cnt = 0;
 			while (true) {
-				
 				// 1. 청소한다.
 				if (!isClean[pi][pj]) {
 					isClean[pi][pj] = true;
@@ -72,11 +70,7 @@ public class Main {
 						}
 					}
 				}
-/*
-				for (int i = 0; i < N; i++) {
-					System.out.println(Arrays.toString(isClean[i]));
-				}
-				System.out.println();*/
+
 			}
 			System.out.println(clean);
 		}
