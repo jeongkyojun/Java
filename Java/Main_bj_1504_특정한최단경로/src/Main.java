@@ -58,13 +58,13 @@ public class Main {
 		vnear = dijkstra(1, N+1, pq, nodes);
 		System.out.println(Arrays.toString(vnear));
 		
-		long Ra = vnear[a]; // 1->a
-		long Rb = vnear[b]; // 1->b
+		long Ra = vnear[a]; // 1->a -> b -> N-1
+		long Rb = vnear[b]; // 1->b -> a -> N-1
 		
 		// a->b를 확인
 		vnear = dijkstra(a, N+1, pq, nodes);
 		System.out.println(Arrays.toString(vnear));
-
+		
 		if(Ra!=-1)
 		{
 			if(vnear[b]==-1)
@@ -80,7 +80,7 @@ public class Main {
 				Rb+=vnear[b];
 		}
 		
-		vnear = dijkstra(N, N+1, pq, nodes);
+		vnear = dijkstra(N, N+1, pq, nodes); // N -> a  = a -> N
 		System.out.println(Arrays.toString(vnear));
 		// 값 더하기
 		
