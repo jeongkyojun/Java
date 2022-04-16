@@ -80,7 +80,6 @@ public class Main {
 	{
 		if(n==cnt)
 		{
-			//System.out.println(Arrays.toString(first));
 			boardGame(dir,score,blue,dir_blue,dice,first,p);
 			return;
 		}
@@ -140,9 +139,6 @@ public class Main {
 		}
 		if(max<res)
 		{
-			//System.out.println("0"+Arrays.toString(route[0]));
-			//System.out.println("1"+Arrays.toString(route[1]));
-			//System.out.println(res);
 			max = res;
 		}
 	}
