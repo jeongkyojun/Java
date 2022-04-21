@@ -63,12 +63,6 @@ public class Main {
 			for(int i=0;i<n;i++)
 			{
 				SetRot(tmp, rotation[next[i]][0], rotation[next[i]][1], rotation[next[i]][2], q);
-				/*
-				System.out.println();
-				for (int j = 0; j < mat.length; j++)
-					System.out.println(Arrays.toString(mat[j]));
-				System.out.println();
-				*/
 			}
 			int sum = 0;
 			for(int i=0;i<tmp.length;i++)
