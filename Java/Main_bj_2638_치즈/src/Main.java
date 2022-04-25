@@ -53,8 +53,6 @@ public class Main {
 			int time = 0;
 			while (cheese > 0 && ++time>0) 
 			{
-				int[][] tmp = new int[N][M];
-				boolean[][] air_tmp = new boolean[N][M];
 				// 인접값을 더해서 갱신한다.
 				for (int i = 0; i < N; i++) {
 					for (int j = 0; j < M; j++) {

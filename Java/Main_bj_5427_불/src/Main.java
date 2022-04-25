@@ -26,7 +26,6 @@ public class Main {
 				String str = bf.readLine();
 				for(int j=0;j<M;j++)
 				{
-					//System.out.print(str.charAt(j));
 					switch(str.charAt(j))
 					{
 					case '#':
@@ -46,19 +45,13 @@ public class Main {
 						break;
 					}
 				}
-				//System.out.println();
 			}
 			if(next)
 			{
 				System.out.println("1");
 				continue tc;
 			}
-			/*
-			for(int i=0;i<mat.length;i++)
-			{
-				System.out.println(Arrays.toString(mat[i]));
-			}
-			*/
+
 			int time = 1;
 			while(!me.isEmpty())
 			{
