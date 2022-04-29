@@ -16,7 +16,6 @@ public class Main {
 			
 			int N = Integer.parseInt(bf.readLine());
 			int[][] mat = new int[N][N];
-			int num =0;
 			for(int i=0;i<N;i++)
 			{
 				StringTokenizer st = new StringTokenizer(bf.readLine());
