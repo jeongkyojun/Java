@@ -17,7 +17,7 @@ public class Main {
 			int M = sc.nextInt();
 			int[] max = new int[N + 1];
 			int[] min = new int[N + 1];
-			int[][] dp = new int[N + 1][N + 1];
+			int[][] dp = new int[N + 1][200];
 			max[N] = -1;
 			dp[2][1] = 1;
 			max[2] = 1;
