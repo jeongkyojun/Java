@@ -26,46 +26,33 @@ public class Main {
 			
 			int end = 0;
 			int[][] DP = new int[N+1][N+1];
-			Queue<int[]> cards = new LinkedList<int[]>();
-			cards.offer(new int[] {0,0});
-			while(!cards.isEmpty())
+			boolean[][] chk = new boolean[N+1][N+1];
+			chk[0][0] = true;
+			for(int i=0;i<N;i++)
 			{
-				int[] tmp = cards.poll();
-				//System.out.println(Arrays.toString(tmp));
-				if(A[tmp[0]]>B[tmp[1]])
+				for(int j=0;j<N;j++)
 				{
-					// 값이 큰 경우 갱신하고 DP에 넣는다.
-					if(DP[tmp[0]][tmp[1]+1]<DP[tmp[0]][tmp[1]]+B[tmp[1]])
+					if(chk[i][j])// 카드가 도달할 수 있는경우인지를 확인
 					{
-						DP[tmp[0]][tmp[1]+1] = DP[tmp[0]][tmp[1]]+B[tmp[1]];
-						if(tmp[1]+1<N)
-							cards.offer(new int[] {tmp[0],tmp[1]+1});
-						else
-							end = Integer.max(end, DP[tmp[0]][tmp[1]+1]);
+						if(A[i]>B[j]) // 왼쪽 카드가 더 큰경우
+						{
+							chk[i][j+1] = true;
+							DP[i][j+1] = Integer.max(DP[i][j+1], DP[i][j]+B[j]); 	// 오른쪽 카드를 버리면서 점수 합산
+							if(j+1==N)
+								end = Integer.max(DP[i][j+1], end);
+						}
+						chk[i+1][j] = true;
+						DP[i+1][j] = Integer.max(DP[i+1][j], DP[i][j]);				// 왼쪽만 버리는 경우
+						chk[i+1][j+1] = true;
+						DP[i+1][j+1] = Integer.max(DP[i+1][j+1], DP[i][j]); 		// 오른쪽과 왼쪽 둘 다 버리는 경우
+						if(j+1==N||i+1==N)
+							end = Integer.max(DP[i][j], end);
 					}
 				}
-				if(DP[tmp[0]][tmp[1]]==0||DP[tmp[0]+1][tmp[1]+1]<DP[tmp[0]][tmp[1]])
-				{
-					DP[tmp[0]+1][tmp[1]+1] = DP[tmp[0]][tmp[1]];
-					if(tmp[0]+1<N && tmp[1]+1<N)
-						cards.offer(new int[] {tmp[0]+1,tmp[1]+1});
-					else
-						end = Integer.max(end, DP[tmp[0]][tmp[1]]);
-				}
-				if(DP[tmp[0]][tmp[1]]==0||DP[tmp[0]+1][tmp[1]]<DP[tmp[0]][tmp[1]])
-				{
-					DP[tmp[0]+1][tmp[1]] = DP[tmp[0]][tmp[1]];
-					if(tmp[0]+1<N)
-						cards.offer(new int[] {tmp[0]+1,tmp[1]});
-					else
-						end = Integer.max(end, DP[tmp[0]][tmp[1]]);
-				}
-				/*for(int i=0;i<=N;i++)
-				{
-					System.out.println(Arrays.toString(DP[i]));
-				}
-				System.out.println();*/
-			}		
+			}
+			
+			for(int i=0;i<N+1;i++)
+				System.out.println(Arrays.toString(DP[i]));
 			System.out.println(end);
 		}
 	}
