@@ -55,14 +55,15 @@ public class Main {
 			String res = "";
 			for (int i = 0; i < str.length(); i++) {
 				int cnt=0;
+				// 괄호를 확인한다
 				if (str.charAt(i) == '(') {
 					for (int j = 0; j < n; j++) {
-						if (open[j] == i) {
+						if (open[j] == i) { // 몇번째 괄호인지를 확인한다
 							cnt = j;
 							break;
 						}
 					}
-					if(((1<<cnt)&chk)!=0)
+					if(((1<<cnt)&chk)!=0) // 해당 괄호가 지우는괄호인지 확인한다.
 						continue;
 				}
 				if (str.charAt(i) == ')') {
