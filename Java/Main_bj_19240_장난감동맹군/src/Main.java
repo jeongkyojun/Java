@@ -1,7 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-너무 어렵다 ㅋㅋㅋㅋㅋㅋㅋㅋ
 public class Main {
 
 	public static void main(String[] args) throws Exception {
@@ -12,17 +11,21 @@ public class Main {
 			StringTokenizer st = new StringTokenizer(bf.readLine());
 			int N = Integer.parseInt(st.nextToken());
 			int M = Integer.parseInt(st.nextToken());
-			boolean[][] mat = new boolean[N][N];
+			List<List<Integer>> lists = new ArrayList<List<Integer>>();
 			int[] U = new int[N];
 			boolean Able = true;
+			for(int i=0;i<N;i++)
+			{
+				lists.add(new ArrayList<Integer>());
+			}
 			for (int i = 0; i < M; i++) {
 				st = new StringTokenizer(bf.readLine());
 				int a = Integer.parseInt(st.nextToken()) - 1;
 				int b = Integer.parseInt(st.nextToken()) - 1;
-				mat[a][b] = true;
-				mat[b][a] = true;
+				lists.get(a).add(b);
+				lists.get(b).add(a);
 			}
-			Able = check(mat, U);
+			Able = check(lists, U);
 			if (Able)
 				System.out.println("YES");
 			else
@@ -30,31 +33,40 @@ public class Main {
 		}
 	}
 
-	static boolean check(boolean[][] mat, int[] chk) {
-		chk[0] = 1;
-		Queue<Integer> pq = new LinkedList<Integer>();
-		pq.offer(0);
-		while (!pq.isEmpty()) {
-			int size = pq.size();
-			for (int i = 0; i < size; i++) {
-				int tmp = pq.poll();
-				for (int j = 0; j < mat.length; j++) {
-					if (mat[tmp][j]) {
-						if (chk[j] == 0) {
-							if(chk[tmp]==1)
-								chk[j] = 2;
-							else if(chk[tmp]==2)
-								chk[j]= 1;
-							else
-								System.out.println("error");
-							pq.offer(j);
-						}
-						if (chk[j] == chk[tmp])
-							return false;
-					}
-				}
+	static boolean check(List<List<Integer>> mat, int[] team) {
+		boolean[] chk = new boolean[mat.size()];
+		for(int i=0;i<mat.size();i++)
+		{
+			if(chk[i]) continue;	// 이미 방문한 node는 지나친다.
+			//System.out.println(i);
+			if(dfs(mat,team,chk,i,1)) // true 가 반환되면 불가능한 경우의 수가 된다.
+			{
+				return false;
 			}
 		}
 		return true;
+	}
+	static boolean dfs(List<List<Integer>> mat, int[] team, boolean[] chk,int node,int nums) {
+		team[node] = nums; // 방문처리와 팀 처리 수행
+		chk[node] = true;
+		for(int i=0;i<mat.get(node).size();i++)
+		{
+			
+			if(nums!=0 && team[mat.get(node).get(i)] ==nums)
+				return true;
+			
+			if(chk[mat.get(node).get(i)]) continue; // 방문한 노드는 지나친다.
+			
+			else
+			{
+				if(nums==1)
+					if(dfs(mat,team,chk,mat.get(node).get(i),2))
+						return true;
+				if(nums==2)
+					if(dfs(mat,team,chk,mat.get(node).get(i),1))
+						return true;
+			}
+		}
+		return false;
 	}
 }
