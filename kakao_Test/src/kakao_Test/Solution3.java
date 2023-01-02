@@ -76,7 +76,7 @@ public class Solution3 {
         }
 
         // 배열 갱신
-        int[] tmp = new int[bits.length]; // 그대로 쓰면 문제 발생 (사실 dfs라 문제 안생김 )
+        int[] tmp = new int[bits.length];
         for(int i=0;i<point;i++)
         {
             tmp[i] = bits[i];
