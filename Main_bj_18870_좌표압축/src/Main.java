@@ -1,6 +1,9 @@
 import java.util.*;
 import java.io.*;
 
+
+시간초과
+
 class num implements Comparable<num> {
 	int index;
 	int val;
