@@ -11,7 +11,6 @@ public class Main {
 		
 		// 제일 위 카드를 버리고, 그 뒤 제일 위 카드를 제일 아래로 옮긴다
 		// pop, push(pop) 반복
-		int head, tail;
 		Queue<Integer> q = new LinkedList<Integer>();
 		for(int i=0;i<n;i++)
 		{
