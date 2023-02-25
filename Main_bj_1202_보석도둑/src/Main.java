@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 class jewel implements Comparable<jewel> {
-	int m;
-	int v;
-	jewel(int m, int v) {
+	long m;
+	long v;
+	jewel(long m, long v) {
 		this.m = m;
 		this.v = v;
 	}
@@ -14,7 +14,11 @@ class jewel implements Comparable<jewel> {
 	}
 	@Override
 	public int compareTo(jewel o) {
-		return m-o.m;
+		if(m-o.m<0)
+			return -1;
+		else if(m-o.m==0)
+			return 0;
+		else return 1;
 	}
 }
 
@@ -31,25 +35,25 @@ public class Main {
 			StringTokenizer st = new StringTokenizer(bf.readLine());
 			int N = Integer.parseInt(st.nextToken());
 			int K = Integer.parseInt(st.nextToken());
-			PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+			PriorityQueue<Long> pq = new PriorityQueue<Long>(Collections.reverseOrder());
 			PriorityQueue<jewel> jewely = new PriorityQueue<jewel>();
-			PriorityQueue<Integer> bag = new PriorityQueue<Integer>();
+			PriorityQueue<Long> bag = new PriorityQueue<Long>();
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(bf.readLine());
-				int m = Integer.parseInt(st.nextToken());
-				int v = Integer.parseInt(st.nextToken());
+				long m = Long.parseLong(st.nextToken());
+				long v = Long.parseLong(st.nextToken());
 				jewely.offer(new jewel(m, v));
 			}
 			for (int j = 0; j < K; j++) {
-				bag.offer(Integer.parseInt(bf.readLine()));
+				bag.offer(Long.parseLong(bf.readLine()));
 			}
 			long res = 0;
 			System.out.println(jewely.toString());
 			System.out.println(bag.toString());
 			System.out.println("=====");
 			while (!bag.isEmpty()) {
-				int b = bag.poll();
-				//System.out.println(b+" ::: ");
+				long b = bag.poll();
+				System.out.println(b+" ::: ");
 				while(!jewely.isEmpty()) {
 					jewel tmp = jewely.poll();
 					if(tmp.m <= b) { // 무게가 가방과 같거나 작은경우
@@ -59,13 +63,14 @@ public class Main {
 					else
 					{
 						jewely.offer(tmp);
-						break;
+						if(tmp.m>b)
+							break;
 					}
 				}
 				System.out.println(pq.toString());
 				if(!pq.isEmpty())
 				{
-					res+=pq.poll();
+					res+=(long)pq.poll();
 				}
 			}
 			System.out.println(res);
