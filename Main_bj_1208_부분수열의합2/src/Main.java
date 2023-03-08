@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.*;
 
-아직 푸는중
 
 public class Main {
 
+	static int res;
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("res/input.txt"));
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -29,7 +29,7 @@ public class Main {
 			}
 			Arrays.sort(arr);
 			System.out.println(Arrays.toString(arr)+ " , "+p);
-			
+			res =0;			
 			subset_A(arr,s,arr.length-1,p,0,0,sum[n]-sum[p]);	
 		}//
 	}
@@ -38,10 +38,18 @@ public class Main {
 	static void subset_A(int[] arr, int s, int n,int p, int now,int value, int max) {
 		if(value+max<s) return; // 한쪽의 체크값이 다른쪽 체크값보다 일방적으로 큰경우 pass
 		if(now>=p) return;
+		subset_B(arr,s,n,p,now,p,value);
+		subset_A(arr,s,n,p,now+1,value,max);
+		subset_A(arr,s,n,p,now+1,value+arr[now],max);
 	}
-	static void subset_B(int[] arr, int s, int n,int p, int now,int value, int min) {
+	static void subset_B(int[] arr, int s, int n,int p, int now,int value,int min) {
 		if(value+min>s) return;
-		if(now>=n) return;
+		if(now==n) {
+			if(value+min==s)
+				res++;
+		}
+		subset_B(arr,s,n,p,now+1,value,min);
+		subset_B(arr,s,n,p,now+1,value+arr[now],min);
 	}
 	
 }
