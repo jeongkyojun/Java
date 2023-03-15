@@ -1,8 +1,8 @@
 import java.util.*;
 import java.io.*;
 
-
 시간초과
+더 빨리 정렬할 수 있는 방법을 찾아야 한다.
 
 class num implements Comparable<num> {
 	int index;
@@ -37,22 +37,18 @@ public class Main {
 			for (int i = 0; i < n; i++) {
 				pq.offer(new num(i,Integer.parseInt(st.nextToken())));
 			}
+			int cnt = -1;
 			int[] res = new int[n];
-			int cnt = 0;
-			int bef = 0;
-			for (int i = 0; i < n; i++) {
+			int bef = -1000000001;
+			while(!pq.isEmpty()) {
 				num tmp = pq.poll();
-				if(i==0) bef = tmp.val;
-				if (i>0 && tmp.val != bef)
-				{
-					bef = tmp.val;
+				if(bef<tmp.val)
 					cnt++;
-				}
 				res[tmp.index] = cnt;
+				bef = tmp.val;
 			}
-			for (int i = 0; i < n; i++) {
-				System.out.print(res[i] + " ");
-			}
+			for(int i=0;i<n;i++)
+				System.out.print(res[i]+" ");
 			System.out.println();
 		}
 	}

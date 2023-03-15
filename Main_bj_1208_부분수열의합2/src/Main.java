@@ -1,10 +1,11 @@
 import java.io.*;
 import java.util.*;
 
+// simple is best
 
 public class Main {
 
-	static int res;
+	static long res;
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("res/input.txt"));
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -17,39 +18,36 @@ public class Main {
 			StringTokenizer st = new StringTokenizer(bf.readLine());
 			int n = Integer.parseInt(st.nextToken());
 			int s = Integer.parseInt(st.nextToken());
-			int[] arr = new int[n];
-			int[] sum = new int[n+1];
-			int p = 0;
+			int[] mat = new int[8000001];
 			st = new StringTokenizer(bf.readLine());
 			for(int i=0;i<n;i++)
 			{
-				arr[i] = Integer.parseInt(st.nextToken());
-				sum[i+1]=sum[i]+arr[i];
-				if(arr[i]<s) p++;
+				int num = Integer.parseInt(st.nextToken());
+				System.out.println(num);
+				// num이 음수인경우 -100000 까지의 값이므로 j+num>=0이 되어야 한다. -> j>=-num
+				if(num<0)
+				{
+					for(int j=-num;j<=8000000;j++)
+					{
+						if(mat[j]==0) continue;
+						mat[j+num]+=mat[j];
+						System.out.println((j+num)+" -> "+mat[j+num]);
+					}
+				}
+				// num이 양수인경우 100000까지의 값이므로 j+num<8000000 이어야 한다. j<800000-num
+				else
+				{
+					for(int j=8000000-num;j>=0;j--)
+					{
+						if(mat[j]==0) continue;
+						mat[j+num]+=mat[j];
+						System.out.println((j+num)+" -> "+mat[j+num]);
+					}
+				}
+				mat[4000000+num]++; 
 			}
-			Arrays.sort(arr);
-			System.out.println(Arrays.toString(arr)+ " , "+p);
-			res =0;			
-			subset_A(arr,s,arr.length-1,p,0,0,sum[n]-sum[p]);	
+			System.out.println(mat[s+4000000]);
 		}//
-	}
-
-	// 배열, 체크값, 최대점, 1차 최대점, 현재점, 현재 값, 큰것 최댓값
-	static void subset_A(int[] arr, int s, int n,int p, int now,int value, int max) {
-		if(value+max<s) return; // 한쪽의 체크값이 다른쪽 체크값보다 일방적으로 큰경우 pass
-		if(now>=p) return;
-		subset_B(arr,s,n,p,now,p,value);
-		subset_A(arr,s,n,p,now+1,value,max);
-		subset_A(arr,s,n,p,now+1,value+arr[now],max);
-	}
-	static void subset_B(int[] arr, int s, int n,int p, int now,int value,int min) {
-		if(value+min>s) return;
-		if(now==n) {
-			if(value+min==s)
-				res++;
-		}
-		subset_B(arr,s,n,p,now+1,value,min);
-		subset_B(arr,s,n,p,now+1,value+arr[now],min);
 	}
 	
 }
