@@ -123,11 +123,11 @@ public class Main {
 		// pq 재정의
 		pq.clear();
 		pq.offer(new node(a,0)); // N부터 시작
+		vnear[a] = 0;
 		while(!pq.isEmpty())
 		{
 			node tmp = pq.poll();
 			if(chk[tmp.v]) continue; // 이미 방문한 곳은 pass
-			vnear[tmp.v] = tmp.w; // 최단거리 표시
 			chk[tmp.v] = true; // 방문처리	
 			for(node n : nodes[tmp.v])
 			{
